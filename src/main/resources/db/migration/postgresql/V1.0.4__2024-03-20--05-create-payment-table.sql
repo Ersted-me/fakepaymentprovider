@@ -1,6 +1,6 @@
 CREATE TABLE payment
 (
-    id               SERIAL       NOT NULL,
+    id               VARCHAR(36)  NOT NULL DEFAULT gen_random_uuid(),
     transaction_id   VARCHAR(36)  NOT NULL,
     language         VARCHAR(20)  NOT NULL,
     notification_url VARCHAR(255) NOT NULL,
@@ -9,8 +9,8 @@ CREATE TABLE payment
     method           VARCHAR(8)   NOT NULL, -- card, cash, etc
     currency         VARCHAR(8)   NOT NULL, -- RUB, USD, EUR, etc
 
-    card_id          SERIAL       NOT NULL,
-    account_id       SERIAL       NOT NULL,
+    card_id          VARCHAR(36)  NOT NULL,
+    account_id       VARCHAR(36)  NOT NULL,
 
     created_at       TIMESTAMP    NOT NULL,
     created_by       VARCHAR(64)  NOT NULL,

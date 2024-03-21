@@ -8,5 +8,6 @@ CREATE TABLE merchant
     updated_at  TIMESTAMP    NOT NULL,
     updated_by  VARCHAR(64)  NOT NULL,
     status      VARCHAR(16)  NOT NULL,
+
     PRIMARY KEY (merchant_id)
 );

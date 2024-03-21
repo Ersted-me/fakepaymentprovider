@@ -1,7 +1,6 @@
 CREATE TABLE webhook
 (
-    id            SERIAL       NOT NULL,
-
+    id            VARCHAR(36)  NOT NULL DEFAULT gen_random_uuid(),
     url           VARCHAR(255) NOT NULL,
     request       VARCHAR(255) NOT NULL,
     response      VARCHAR(255) NOT NULL,
@@ -9,7 +8,7 @@ CREATE TABLE webhook
     number_retry  INT          NOT NULL,
     last_retry_at TIMESTAMP    NOT NULL,
 
-    payment_id    SERIAL       NOT NULL,
+    payment_id    VARCHAR(36)  NOT NULL,
 
     created_at    TIMESTAMP    NOT NULL,
     created_by    VARCHAR(64)  NOT NULL,
