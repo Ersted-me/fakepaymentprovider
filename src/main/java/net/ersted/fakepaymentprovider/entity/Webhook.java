@@ -1,7 +1,6 @@
 package net.ersted.fakepaymentprovider.entity;
 
 import lombok.*;
-import net.ersted.fakepaymentprovider.enums.PaymentStatus;
 import net.ersted.fakepaymentprovider.enums.WebhookStatus;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
@@ -18,7 +17,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table("webhook")
-public class Webhook implements Persistable<String>  {
+public class Webhook implements Persistable<String> {
 
     @Id
     @Column("created_at")

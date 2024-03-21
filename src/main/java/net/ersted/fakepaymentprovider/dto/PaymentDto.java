@@ -3,9 +3,6 @@ package net.ersted.fakepaymentprovider.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import net.ersted.fakepaymentprovider.entity.Account;
-import net.ersted.fakepaymentprovider.entity.Card;
-import net.ersted.fakepaymentprovider.enums.MerchantStatus;
 import net.ersted.fakepaymentprovider.enums.PaymentStatus;
 
 import java.time.LocalDateTime;
