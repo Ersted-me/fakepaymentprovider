@@ -15,3 +15,21 @@ CREATE TABLE account
     PRIMARY KEY (id),
     CONSTRAINT fk_account_merchant FOREIGN KEY (merchant_id) REFERENCES merchant (merchant_id)
 );
+
+INSERT INTO public.account (id, currency, balance, merchant_id,
+                            created_at, created_by,
+                            updated_at, updated_by,
+                            status)
+VALUES (DEFAULT, 'BRL', 0.00, 'PROSELYTE',
+        '2024-03-25 19:25:23.000000', 'auto',
+        '2024-03-25 19:25:23.000000', 'auto',
+        'ACTIVE');
+
+INSERT INTO public.account (id, currency, balance, merchant_id,
+                            created_at, created_by,
+                            updated_at, updated_by,
+                            status)
+VALUES (DEFAULT, 'RUB', 0.00, 'PROSELYTE',
+        '2024-03-25 19:25:23.000000', 'auto',
+        '2024-03-25 19:25:23.000000', 'auto',
+        'ACTIVE');

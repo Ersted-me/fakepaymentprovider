@@ -1,14 +1,10 @@
 package net.ersted.fakepaymentprovider.mapper;
 
-import net.ersted.fakepaymentprovider.dto.WebhookDto;
-import net.ersted.fakepaymentprovider.entity.Webhook;
-import org.mapstruct.InheritInverseConfiguration;
+import net.ersted.fakepaymentprovider.dto.SecurePayment;
+import net.ersted.fakepaymentprovider.dto.WebhookRq;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface WebhookMapper {
-    Webhook map(WebhookDto dto);
-
-    @InheritInverseConfiguration
-    WebhookDto map(Webhook entity);
+    WebhookRq mapToRq(SecurePayment securePayment);
 }

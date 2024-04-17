@@ -1,10 +1,8 @@
 package net.ersted.fakepaymentprovider.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import net.ersted.fakepaymentprovider.enums.PaymentStatus;
+import net.ersted.fakepaymentprovider.enums.PaymentType;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
@@ -12,7 +10,9 @@ import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 import org.springframework.util.StringUtils;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Data
 @Builder(toBuilder = true)
@@ -20,9 +20,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Table("payment")
 public class Payment implements Persistable<String>  {
+
     @Id
-    @Column("id")
-    private String id;
     @Column("transaction_id")
     private String transactionId;
     @Column("language")
@@ -32,9 +31,13 @@ public class Payment implements Persistable<String>  {
     @Column("message")
     private String message;
     @Column("type")
-    private String type;
+    private PaymentType type;
+    @Column("payment_method")
+    private String paymentMethod;
     @Column("currency")
     private String currency;
+    @Column("amount")
+    private BigDecimal amount;
 
     @Column("card_id")
     private String cardId;
@@ -57,10 +60,16 @@ public class Payment implements Persistable<String>  {
     @Transient
     private Account account;
     @Transient
-    private Webhook webhook;
+    @ToString.Exclude
+    private Set<Webhook> webhooks;
+
+    @Override
+    public String getId() {
+        return transactionId;
+    }
 
     @Override
     public boolean isNew() {
-        return !StringUtils.hasText(id);
+        return !StringUtils.hasText(transactionId);
     }
 }

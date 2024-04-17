@@ -20,7 +20,7 @@ import java.util.Set;
 public class Webhook implements Persistable<String> {
 
     @Id
-    @Column("created_at")
+    @Column("id")
     private String id;
     @Column("url")
     private String url;
@@ -31,7 +31,7 @@ public class Webhook implements Persistable<String> {
     @Column("code")
     private String code;
     @Column("number_retry")
-    private String numberRetry;
+    private Integer numberRetry;
     @Column("last_retry_at")
     private LocalDateTime lastRetryAt;
 
@@ -50,8 +50,7 @@ public class Webhook implements Persistable<String> {
     private WebhookStatus status;
 
     @Transient
-    @ToString.Exclude
-    private Set<Payment> payments;
+    private Payment payment;
 
     @Override
     public boolean isNew() {

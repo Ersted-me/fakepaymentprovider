@@ -1,26 +1,24 @@
 package net.ersted.fakepaymentprovider.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import net.ersted.fakepaymentprovider.enums.CardStatus;
+import lombok.Data;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Set;
+import java.time.YearMonth;
 
+
+@Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public record CardDto(String id,
-                      String cardNumber,
-                      LocalDateTime expDate,
-                      String cvv,
-                      BigDecimal balance,
-                      LocalDateTime createdAt,
-                      String createdBy,
-                      LocalDateTime updatedAt,
-                      String updatedBy,
-                      CardStatus status,
-                      CustomerDto customer,
-                      Set<PaymentDto> payments) {
+public class CardDto {
+
+    String cardNumber;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonFormat(pattern = "MM/yy")
+    YearMonth expDate;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    String cvv;
 }

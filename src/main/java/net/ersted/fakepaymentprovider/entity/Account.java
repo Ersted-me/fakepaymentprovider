@@ -2,6 +2,7 @@ package net.ersted.fakepaymentprovider.entity;
 
 import lombok.*;
 import net.ersted.fakepaymentprovider.enums.AccountStatus;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.domain.Persistable;
 import org.springframework.data.relational.core.mapping.Column;
@@ -18,12 +19,15 @@ import java.util.Set;
 @NoArgsConstructor
 @Table("account")
 public class Account implements Persistable<String> {
+    @Id
     @Column("id")
     private String id;
     @Column("currency")
     private String currency;
     @Column("balance")
     private BigDecimal balance;
+    @Column("merchant_id")
+    private String merchantId;
 
     @Column("created_at")
     private LocalDateTime createdAt;

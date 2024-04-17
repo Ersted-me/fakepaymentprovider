@@ -11,20 +11,22 @@ import org.springframework.util.StringUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.time.YearMonth;
 import java.util.Set;
 
 @Data
 @Builder(toBuilder = true)
 @AllArgsConstructor
 @NoArgsConstructor
-@Table("customer")
+@Table("card")
 public class Card implements Persistable<String> {
     @Id
+    @Column("id")
     private String id;
     @Column("card_number")
     private String cardNumber;
     @Column("exp_date")
-    private LocalDateTime expDate;
+    private YearMonth expDate;
     @Column("cvv")
     private String cvv;
     @Column("balance")

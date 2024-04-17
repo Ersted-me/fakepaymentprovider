@@ -11,3 +11,12 @@ CREATE TABLE merchant
 
     PRIMARY KEY (merchant_id)
 );
+
+INSERT INTO public.merchant (merchant_id, secret_key,
+                             created_at, created_by,
+                             updated_at, updated_by,
+                             status)
+VALUES ('PROSELYTE', 'b2eeea3e27834b7499dd7e01143a23dd',
+        '2024-03-25 19:00:00.000000', 'manual',
+        '2024-03-25 19:00:00.000000', 'manual',
+        'ACTIVE')
