@@ -32,7 +32,7 @@ public class PaymentProcess {
     @Scheduled(cron = "*/10 * * * * *")
     public Mono<Void> payoutProcess() {
         return Flux.empty()
-                .thenMany(transactionService.findAll(PaymentType.PAYOUT, PaymentStatus.IN_PROCESS).flatMap(transactionService::approve))
+                .thenMany(payoutService.findAll(PaymentType.PAYOUT, PaymentStatus.IN_PROCESS).flatMap(transactionService::approve))
                 .subscribeOn(Schedulers.newBoundedElastic(5, 1000, "Scheduler-elastic-5-1000"))
                 .then();
     }

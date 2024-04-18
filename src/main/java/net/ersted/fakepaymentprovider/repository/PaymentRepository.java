@@ -14,8 +14,10 @@ import java.util.List;
 public interface PaymentRepository extends R2dbcRepository<Payment, String> {
     Mono<Payment> findByTransactionIdAndType(String transactionId, PaymentType type, String account_merchant_id);
     Mono<Payment> findByTransactionIdAndType(String id, PaymentType type);
+    Mono<Payment> findByTransactionId(String id);
     Flux<Payment> findAllByTypeAndCreatedAtBetween(PaymentType type, Instant createdAt, Instant createdAt2);
     Flux<Payment> findAllByTypeAndStatus(PaymentType type, PaymentStatus status);
+
 
 
 }
