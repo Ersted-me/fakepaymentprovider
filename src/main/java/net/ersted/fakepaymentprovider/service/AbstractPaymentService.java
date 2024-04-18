@@ -78,9 +78,6 @@ public abstract class AbstractPaymentService implements PaymentService {
                 .flatMap(this::withdrawalAmountFromBalance)
                 .as(transactionalOperator::transactional)
                 .retry(NUM_RETRIES_TRANSACTIONAL)
-//                .flatMap(payment -> Mono.fromSupplier(() -> paymentMapper.mapToSecurePayment(payment))
-//                        .flatMap(webhookService::sendWebhook)
-//                        .thenReturn(payment))
                 .map(payment -> new CreatePaymentRs(payment.getTransactionId(), payment.getStatus(), "OK"));
     }
 
@@ -111,6 +108,10 @@ public abstract class AbstractPaymentService implements PaymentService {
     }
 
     protected abstract Mono<Payment> withdrawalAmountFromBalance(Payment payment);
+
+    protected abstract Mono<Payment> transactionAmountToBalance(Payment payment);
+
+    protected abstract Mono<Payment> balanceRollback(Payment payment);
 
     @Override
     public Mono<NonSecurePayment> findInNonSecureForm(String transactionId, PaymentType type) {
@@ -151,10 +152,6 @@ public abstract class AbstractPaymentService implements PaymentService {
     public Flux<Payment> findAll(PaymentType paymentType, PaymentStatus status) {
         return paymentRepository.findAllByTypeAndStatus(paymentType, status);
     }
-
-    protected abstract Mono<Payment> transactionAmountToBalance(Payment payment);
-
-    protected abstract Mono<Payment> balanceRollback(Payment payment);
 
     protected Mono<Payment> loadTransientObjects(Payment payment) {
         Mono<Card> cardMono = cardService.find(payment.getCardId())
