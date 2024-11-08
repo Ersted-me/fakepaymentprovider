@@ -30,20 +30,18 @@ public class CustomerService {
     }
 
     public Mono<Customer> save(String firstName, String lastName, String country) {
-        return Mono.fromSupplier(() -> {
-                    LocalDateTime currentDateTime = LocalDateTime.now();
-                    return Customer.builder()
-                            .firstName(firstName)
-                            .lastName(lastName)
-                            .country(country)
-                            .createdAt(currentDateTime)
-                            .createdBy("auto")
-                            .updatedAt(currentDateTime)
-                            .updatedBy("auto")
-                            .status(CustomerStatus.ACTIVE)
-                            .build();
-                })
-                .flatMap(customerRepository::save)
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        Customer customer = Customer.builder()
+                .firstName(firstName)
+                .lastName(lastName)
+                .country(country)
+                .createdAt(currentDateTime)
+                .createdBy("auto")
+                .updatedAt(currentDateTime)
+                .updatedBy("auto")
+                .status(CustomerStatus.ACTIVE)
+                .build();
+        return customerRepository.save(customer)
                 .as(transactionalOperator::transactional);
     }
 }

@@ -54,7 +54,7 @@ public class CardService {
     }
 
     public Mono<Card> find(String cardNumber, YearMonth expDate, String cvv) {
-        return cardRepository.findByCardNumberAndExpDateAndCvv(cardNumber, expDate, cvv)
+        return cardRepository.findByCardNumber(cardNumber)
                 .switchIfEmpty(Mono.error(new NotFoundException("CARD_NOT_FOUND", "Card was not found")));
     }
 }

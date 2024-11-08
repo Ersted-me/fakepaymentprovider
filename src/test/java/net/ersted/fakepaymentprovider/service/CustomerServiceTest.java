@@ -101,25 +101,25 @@ class CustomerServiceTest {
                 .findByFirstNameAndLastNameAndCountry(anyString(), anyString(), anyString());
     }
 
-//    @Test
-//    @DisplayName("Test save customer functionality")
-//    public void givenPersistCustomer_whenSave_thenCustomerIsReturned() {
-//        //given
-//        Customer transientCustomer = CustomerDataUtils.getTransientCustomer();
-//
-//        BDDMockito.given(customerRepository.save(any(Customer.class)))
-//                .willReturn(Mono.just(transientCustomer));
-//
-//        BDDMockito.given(transactionalOperator.transactional(any(Mono.class)))
-//                .willReturn(Mono.just(transientCustomer));
-//
-//        //when
-//        StepVerifier.create(customerService.save(transientCustomer.getFirstName(), transientCustomer.getLastName(), transientCustomer.getCountry()))
-//                //then
-//                .expectNext(transientCustomer)
-//                .expectComplete()
-//                .verify();
-//        verify(customerRepository, times(1)).save(any(Customer.class));
-//        verifyNoMoreInteractions(customerRepository);
-//    }
+    @Test
+    @DisplayName("Test save customer functionality")
+    public void givenPersistCustomer_whenSave_thenCustomerIsReturned() {
+        //given
+        Customer transientCustomer = CustomerDataUtils.getTransientCustomer();
+
+        BDDMockito.given(customerRepository.save(any(Customer.class)))
+                .willReturn(Mono.just(transientCustomer));
+
+        BDDMockito.given(transactionalOperator.transactional(any(Mono.class)))
+                .willReturn(Mono.just(transientCustomer));
+
+        //when
+        StepVerifier.create(customerService.save(transientCustomer.getFirstName(), transientCustomer.getLastName(), transientCustomer.getCountry()))
+                //then
+                .expectNext(transientCustomer)
+                .expectComplete()
+                .verify();
+        verify(customerRepository, times(1)).save(any(Customer.class));
+        verifyNoMoreInteractions(customerRepository);
+    }
 }

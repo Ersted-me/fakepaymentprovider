@@ -18,8 +18,7 @@ import reactor.test.StepVerifier;
 
 import java.time.YearMonth;
 
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -78,7 +77,7 @@ class CardServiceTest {
         String cvv = transientCard.getCvv();
 
 
-        BDDMockito.given(cardRepository.findByCardNumberAndExpDateAndCvv(cardNumber, expDate, cvv))
+        BDDMockito.given(cardRepository.findByCardNumber(cardNumber))
                 .willReturn(Mono.just(transientCard));
         //when
         StepVerifier.create(cardService.find(cardNumber, expDate, cvv))
@@ -88,23 +87,23 @@ class CardServiceTest {
                 .verify();
 
         verify(cardRepository, times(1))
-                .findByCardNumberAndExpDateAndCvv(cardNumber, expDate, cvv);
+                .findByCardNumber(cardNumber);
     }
 
     @Test
     @DisplayName("Test find by cardNumber, expDate, cvv throw exception functionality")
     public void givenNonExistCardNumberExpDateCVV_whenFind_thenExceptionIsThrown() {
         //given
-        BDDMockito.given(cardRepository.findByCardNumberAndExpDateAndCvv(anyString(), any(), anyString()))
+        BDDMockito.given(cardRepository.findByCardNumber("some string"))
                 .willReturn(Mono.empty());
         //when
-        StepVerifier.create(cardService.find(anyString(), any(), anyString()))
+        StepVerifier.create(cardService.find("some string", any(), "some string"))
                 //then
                 .expectErrorMatches(throwable -> throwable instanceof NotFoundException nfe
                         && nfe.getMessage().equals("Card was not found")
                         && nfe.getStatus().equals("CARD_NOT_FOUND"))
                 .verify();
         verify(cardRepository, times(1))
-                .findByCardNumberAndExpDateAndCvv(anyString(), any(), anyString());
+                .findByCardNumber(anyString());
     }
 }
